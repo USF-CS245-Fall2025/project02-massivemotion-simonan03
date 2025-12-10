@@ -8,14 +8,15 @@
 import java.awt.Color;
 
 public class body {
+    //position of star
     double x;
     double y;
 
-    //velocity
+    //velocity in pixels per update
     double vx;
     double vy;
 
-    int size; //diameter in pixels
+    int size; //diameter in pixels, the radius used for drawing
     double mass;
     Color color;
 
@@ -29,8 +30,7 @@ public class body {
      * @param mass mass of celestial body
      * @param color color of body on the canvas
      */
-    public body(double x, double y, double vx, double vy, int size, double mass, Color color)
-    {
+    public body(double x, double y, double vx, double vy, int size, double mass, Color color) {
         this.x=x;
         this.y=y;
 
@@ -47,8 +47,7 @@ public class body {
     /**
      * updates the celestial body's position based on velocity
      */
-    public void update_position()
-    {
+    public void update_position() {
         x+=vx;
         y+=vy;
     }

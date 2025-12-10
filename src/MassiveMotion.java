@@ -18,9 +18,7 @@ import java.util.Random;
  */
 
 public class MassiveMotion extends JPanel implements ActionListener {
-
     protected Timer tm;
-
 
     private List<body> bodies;
     public static int[] canvas_dimension={640,480};
@@ -32,7 +30,6 @@ public class MassiveMotion extends JPanel implements ActionListener {
     public double star_mass=1E21;
     public int[] star_postions={512,384};
 
-
     //other celestial bodies variables
     public double gen_x=0.06;
     public double gen_y=0.06;
@@ -40,21 +37,17 @@ public class MassiveMotion extends JPanel implements ActionListener {
     public double body_mass=2E29;
     public double body_velocity=3;
 
-
     /**
      * Constructor method
      * Will assign the appropriate values to features/variables based on what it reads from given property file
      * @param file name of property file
      */
     public MassiveMotion(String file) {
-
         Properties props= new Properties();
 
-        try(InputStream input = new FileInputStream(file))
-        {
+        try(InputStream input = new FileInputStream(file)) {
             props.load(input);
-        }catch(Exception e)
-        {
+        }catch(Exception e) {
             System.out.println(e);
         }
         String list_type=props.getProperty("list").toLowerCase();
@@ -105,21 +98,17 @@ public class MassiveMotion extends JPanel implements ActionListener {
         g.drawRect(0,0,canvas_dimension[0]-1,canvas_dimension[1]-1 );
 
         //updates every celestial bodies position
-        for(int i=0;i<bodies.size();i++)
-        {
+        for(int i=0;i<bodies.size();i++) {
             body b=(body)bodies.get(i);
             g.setColor(b.color);
             g.fillOval((int)b.x, (int)b.y, b.size, b.size);
         }
-
-
     }
 
     /**
      * will randomly generate a celestial body at a random location based on values of gen_x and gen_y
      */
     public void body_generator() {
-
         Random random = new Random();
         float chance = random.nextFloat(0, 1);
 
@@ -130,25 +119,19 @@ public class MassiveMotion extends JPanel implements ActionListener {
             double vx;
             double vy;
 
-            if(random.nextBoolean())
-            {
-                //should move to the right
+            if(random.nextBoolean()) {//should move to the right
                 x=0;
                 vx=body_velocity;
-            } else
-            {
-                //should move to the left
+            } else {//should move to the left
                 x=canvas_dimension[0]-body_size;
                 vx=-body_velocity;
             }
             //makes it more random in choosing direction and speed of celestial body
             vy=(random.nextDouble(0,1)-0.5)*body_velocity;
-
-
             bodies.add(new body(x,y,vx,vy,body_size,body_mass,Color.black));
-
         }
         chance = random.nextFloat(0, 1);
+
         //randomly determines if celestial body will randomly be on the x axis
         if (chance < gen_y){
             double x = random.nextDouble() * canvas_dimension[0];
@@ -156,25 +139,17 @@ public class MassiveMotion extends JPanel implements ActionListener {
             double vx;
             double vy;
 
-            if(random.nextBoolean())
-            {
-                //should move up
+            if(random.nextBoolean()) { //should move up
                 y=0;
                 vy=body_velocity;
-            } else
-            {
-                //should move down
+            } else { //should move down
                 y=canvas_dimension[1]-body_size;
                 vy=-body_velocity;
             }
             //makes it more random in choosing direction and speed of celestial body
             vx=(random.nextDouble(0,1)-0.5)*body_velocity;
-
-
             bodies.add(new body(x,y,vx,vy,body_size,body_mass,Color.black));
-
         }
-
     }
 
     /**
@@ -183,11 +158,9 @@ public class MassiveMotion extends JPanel implements ActionListener {
      */
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
-
         body_generator();
 
-        for(int i=0;i<bodies.size();i++)
-        {
+        for(int i=0;i<bodies.size();i++) {
             body b=(body) bodies.get(i);
             b.update_position();
             //removes celestial body once it crosses the boundary
@@ -196,8 +169,7 @@ public class MassiveMotion extends JPanel implements ActionListener {
             boolean off_bottom=b.y>canvas_dimension[1];
             boolean off_top=b.y+body_size<0;
 
-            if(off_right||off_left||off_bottom||off_top)
-            {
+            if(off_right||off_left||off_bottom||off_top) {
                 bodies.remove(i);
             }
         }
@@ -205,7 +177,6 @@ public class MassiveMotion extends JPanel implements ActionListener {
     }
 
     public static void main(String[] args) {
-
         System.out.println("Massive Motion starting...");
         MassiveMotion mm = new MassiveMotion(args[0]);
 

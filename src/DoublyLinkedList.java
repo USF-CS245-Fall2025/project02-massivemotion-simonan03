@@ -3,59 +3,42 @@
  *  This class allows for index based insertion, removal, and access as required
  * @param <T>
  */
-public class DoublyLinkedList<T> implements List<T>{
-
+public  class   DoublyLinkedList<T> implements  List<T>{
     private int size;
     private Node head;
 
-    public DoublyLinkedList()
-    {
-        head=null;
-        size=0;
-    }
-
     /**
-     * constructor for DoublyLinkedList
-      * @param element
+     * default constructor that creates a null list with a size of 0
      */
-    public DoublyLinkedList(Object element)
-    {
-        head=new Node(element);
-        size=1;
-    }
-
-    private static class Node
-    {
-        Object data;
-        DoublyLinkedList.Node next;
-        DoublyLinkedList.Node prev;
-        Node(Object element)
-        {
-            data= element;
-        }
+    public  DoublyLinkedList() {
+        head = null;
+        size = 0;
     }
 
     /**
-     * Adds an element to the list at a specific index
-     * @param index
-     * @param element
-     * @throws IndexOutOfBoundsException if index is invalid
+     * constructor for DoublyLinkedList that initalizes the data associated with the node
+     * @param element the data to be associated with the node
+     */
+    public  DoublyLinkedList(Object element) {
+        head = new Node(element);
+        size = 1;
+    }
+
+    /**
+     * Adds an  element to the list at a specific index
+     * @param   index the specified index
+     * @param   element the element being inserted at that index
+     * @throws  IndexOutOfBoundsException   if  index   is  invalid
      */
     @Override
-    public void add(int index, Object element) {
-        if(index<0||index>size)
-        {
-            throw new IndexOutOfBoundsException();
+    public void add(int index,  Object  element) {
+        if(index < 0|| index > size) {
+            throw   new IndexOutOfBoundsException();
         }
-
-
-        Node new_node=new Node(element);
-
-        if(index==0)
-        {
-            if(size==0)
-            {
-                head=new_node;
+        Node new_node = new Node(element);
+        if(index == 0) {
+            if( size == 0) {
+                head = new_node;
             } else {
                 Node old_head = head;
                 head = new_node;
@@ -70,34 +53,29 @@ public class DoublyLinkedList<T> implements List<T>{
             Node old_node=current.next;
             current.next=new_node;
             new_node.prev=current;
-
             new_node.next=old_node;
             if(old_node!=null){
                 old_node.prev=new_node;
             }
         }
         size++;
-
     }
 
     /**
      * Adds a new element to the end of the list
-     * @param element
+     * @param element element to be added at the end of the list
      * @return true after element is added
      */
     @Override
     public boolean add(Object element) {
         Node new_node=new Node(element);
-        if(size==0)
-        {
+        if(size==0) {
             head=new_node;
             size++;
             return true;
         }
-
         Node current=head;
-        while(current.next!=null)
-        {
+        while(current.next!=null){
             current=current.next;
         }
         current.next=new_node;
@@ -108,21 +86,17 @@ public class DoublyLinkedList<T> implements List<T>{
 
     /**
      * Will return an element associated with a specific index
-     * @param index
-     * @return requested element
+     * @param index the index being searched for
+     * @return element at that index if exists
      * @throws IndexOutOfBoundsException if index is invalid
      */
     @Override
     public T get(int index) {
-        if(index<0||index>=size)
-        {
+        if(index<0||index>=size) {
             throw new IndexOutOfBoundsException();
         }
-
         Node current=head;
-
-        for(int i=0;i<index;i++)
-        {
+        for(int i=0;i<index;i++) {
             current=current.next;
         }
         return (T)current.data;
@@ -137,21 +111,16 @@ public class DoublyLinkedList<T> implements List<T>{
 
     @Override
     public T remove(int index) {
-        if(index<0||index>=size)
-        {
+        if(index<0||index>=size) {
             throw new IndexOutOfBoundsException();
         }
         Node removed_node;
-
-        if(index==0)
-        {
+        if(index==0) {
             removed_node=head;
             head=head.next;
-            if(head!=null)
-            {
+            if(head!=null) {
                 head.prev=null;
             }
-
         }else {
             Node current = head;
             for (int i = 0; i < index-1; i++) {
@@ -176,6 +145,4 @@ public class DoublyLinkedList<T> implements List<T>{
     public int size() {
         return size;
     }
-
-
 }

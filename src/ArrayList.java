@@ -5,37 +5,30 @@
  */
 
 public class ArrayList<T> implements List<T>{
-
-private Object[] list;
-private int size;
+    private Object[] list;
+    private int size;
 
     /**
      * constructor for ArrayList
      */
-public ArrayList()
-{
-    list=new Object[10];
-    size=0;
-}
+    public ArrayList() {
+        list=new Object[10];
+        size=0;
+    }
 
     /**
      * Will adjust available space in list to fit more values in case there's not enough space
      * @param new_size
      */
-    private void size_keeper(int new_size)
-{
-    if(new_size>=list.length)
-    {
-        Object[] list2=new Object[list.length*2];
-        for(int i=0;i<size;i++)
-        {
-            list2[i]=list[i];
+    private void size_keeper(int new_size){ //makes a new list that is double the size of input list if it gets full
+        if(new_size>=list.length) {
+            Object[] list2=new Object[list.length*2];
+            for(int i=0;i<size;i++) {
+                list2[i]=list[i];
+            }
+            list=list2;
         }
-        list=list2;
-
     }
-
-}
 
     /**
      * Adds an element to the list at a specific index
@@ -45,7 +38,6 @@ public ArrayList()
      */
     @Override
     public void add(int index, T element) {
-
         if (index < 0 || index > size) {
             throw new IndexOutOfBoundsException();
         } else {
@@ -55,9 +47,7 @@ public ArrayList()
             }
             list[index]=element;
             size++;
-
         }
-
     }
 
     /**
@@ -97,14 +87,14 @@ public ArrayList()
         if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException();
         }
-            Object removed=list[index];
-            for (int i = index; i < size-1; i++) {
-                    list[i] = list[i+1];
-                }
-            //makes sure that the last index is not duplicated
-            list[size-1]=null;
-            size--;
-            return (T)removed;
+        Object removed=list[index];
+        for (int i = index; i < size-1; i++) {
+            list[i] = list[i+1];
+        }
+        //makes sure that the last index is not duplicated
+        list[size-1]=null;
+        size--;
+        return (T)removed;
         }
 
 

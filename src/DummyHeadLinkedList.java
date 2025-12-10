@@ -4,32 +4,18 @@
  *  The head node will always be a node with a null value pointing to the actual first index within the list
  * @param <T>
  */
-public class DummyHeadLinkedList<T> implements List<T>{
-
+public class DummyHeadLinkedList<T> implements List<T> {
     private int size;
     private Node head;
-
-
-    private class Node
-    {
-        Object data;
-        DummyHeadLinkedList.Node next;
-        Node(Object element)
-        {
-            data= element;
-        }
-    }
 
     /**
      * constructor for DummyHeadLinkedList
      * @param
      */
-    public DummyHeadLinkedList()
-    {
+    public DummyHeadLinkedList(){
         head=new Node(null);
         size=0;
     }
-
 
     /**
      * Adds an element to the list at a specific index
@@ -38,25 +24,19 @@ public class DummyHeadLinkedList<T> implements List<T>{
      * @throws IndexOutOfBoundsException if index is invalid
      */
     @Override
-    public void add(int index, Object element) {
-
-        if(index<0||index>size)
-        {
+    public void add(int index, Object element){
+        if(index<0||index>size) {
             throw new IndexOutOfBoundsException();
         }
-
         Node new_node=new Node(element);
-
         Node current = head;
-        for(int i=0;i<index;i++) {
+        for(int i=0;i<index;i++){
             current = current.next;
         }
-
         new_node.next = current.next;
         current.next = new_node;
         size++;
     }
-
 
     /**
      * Adds a new element to the end of the list
@@ -64,21 +44,14 @@ public class DummyHeadLinkedList<T> implements List<T>{
      * @return true after element is added
      */
     @Override
-    public boolean add(Object element) {
-
-
-
+    public boolean add(Object element){
         Node current=head;
-        while(current.next!=null)
-        {
+        while(current.next!=null){
             current=current.next;
         }
         current.next=new Node(element);
-
         size++;
         return true;
-
-
     }
 
     /**
@@ -87,27 +60,19 @@ public class DummyHeadLinkedList<T> implements List<T>{
      * @return requested element
      * @throws IndexOutOfBoundsException if index is invalid
      */
-
     @Override
-    public T get(int index) {
-        if(index<0||index>=size)
-        {
+    public T get(int index)  {
+        if(index<0||index>=size){
             throw new IndexOutOfBoundsException();
         }
-
-        if(index==0)
-        {
+        if(index==0){
 
             return (T)head.next.data;
         }
-
-        DummyHeadLinkedList.Node current=head.next;
-        for(int i=0;i<index;i++)
-        {
+        Node current=head.next;
+        for(int i=0;i<index;i++){
             current=current.next;
-
         }
-
         return (T)current.data;
     }
 
@@ -118,34 +83,24 @@ public class DummyHeadLinkedList<T> implements List<T>{
      * @throws IndexOutOfBoundsException if index is invalid
      */
     @Override
-    public T remove(int index) {
-        if(index<0||index>=size)
-        {
+    public T remove(int index){
+        if(index<0||index>=size){
             throw new IndexOutOfBoundsException();
         }
-
-
-
-        if(index==0)
-        {
+        if(index==0){
             Node deleted_node=head.next;
             head.next=deleted_node.next;
             size--;
             return (T)deleted_node.data;
         }
-
         Node current=head;
-        for(int i=0;i<index;i++)
-        {
+        for(int i=0;i<index;i++){
             current=current.next;
-
         }
-
         Node deleted_node= current.next;
         current.next=deleted_node.next;
         size--;
         return (T)deleted_node.data;
-
     }
 
     /**
@@ -153,7 +108,7 @@ public class DummyHeadLinkedList<T> implements List<T>{
      * @return size of the list
      */
     @Override
-    public int size() {
+    public int size(){
         return size;
     }
 }
